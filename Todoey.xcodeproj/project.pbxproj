@@ -13,6 +13,7 @@
 		49264AB82329408700EE1F56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49264AB62329408700EE1F56 /* Main.storyboard */; };
 		49264ABA2329408800EE1F56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49264AB92329408800EE1F56 /* Assets.xcassets */; };
 		49264ABD2329408800EE1F56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49264ABB2329408800EE1F56 /* LaunchScreen.storyboard */; };
+		49A83952232DD5F3001CA21C /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A83951232DD5F3001CA21C /* SwipeTableViewController.swift */; };
 		49AF81ED232D76F50093C355 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AF81EC232D76F50093C355 /* Item.swift */; };
 		49AF81EF232D77080093C355 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AF81EE232D77080093C355 /* Category.swift */; };
 		49E62667232C7F9200D0EBEB /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E62666232C7F9200D0EBEB /* CategoryViewController.swift */; };
@@ -26,6 +27,7 @@
 		49264AB92329408800EE1F56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49264ABC2329408800EE1F56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49264ABE2329408800EE1F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A83951232DD5F3001CA21C /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		49AF81EC232D76F50093C355 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		49AF81EE232D77080093C355 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		49E62666232C7F9200D0EBEB /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = Todoey/Controllers/CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -97,6 +99,7 @@
 		49264ACA2329AF6800EE1F56 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				49A83951232DD5F3001CA21C /* SwipeTableViewController.swift */,
 				49E62666232C7F9200D0EBEB /* CategoryViewController.swift */,
 				49264AB42329408700EE1F56 /* TodoListViewController.swift */,
 			);
@@ -248,6 +251,7 @@
 				49E62667232C7F9200D0EBEB /* CategoryViewController.swift in Sources */,
 				49264AB52329408700EE1F56 /* TodoListViewController.swift in Sources */,
 				49264AB32329408700EE1F56 /* AppDelegate.swift in Sources */,
+				49A83952232DD5F3001CA21C /* SwipeTableViewController.swift in Sources */,
 				49AF81EF232D77080093C355 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

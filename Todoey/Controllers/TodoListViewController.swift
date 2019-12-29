@@ -8,12 +8,15 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class TodoListViewController : UITableViewController {
+class TodoListViewController : SwipeTableViewController {
     
     var todoItems : Results<Item>?
     
     let realm = try! Realm()
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var selectedCategory : Category? {
         didSet {
@@ -23,26 +26,67 @@ class TodoListViewController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()//file path to our documents directory
-
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
+        tableView.separatorStyle = .none
+
     }
     
+    //gets called later than viewDidLoad, when view loads, navigationController is not in navigation stack yet, this is why app crashed when we tried to call method in viewDidLoad
+    override func viewWillAppear(_ animated: Bool) {
+        title = selectedCategory?.name
+
+        guard let colourHex = selectedCategory?.colour else { fatalError() }
+
+        updateNavBar(withHexCode: colourHex)
+    }
+    
+    //gets called when view is just about to be removed and current view controller gets destroyed
+    override func viewWillDisappear(_ animated: Bool) {
+ 
+        updateNavBar(withHexCode: "67B3C5")
+    }
+    
+    //MARK: - NavBar Setup Methods
+    
+    func updateNavBar (withHexCode colourHexCode: String) {
+         guard let navBar = navigationController?.navigationBar else {fatalError("Navigation Controller does not exist")}
+        
+        guard let navbarColour = UIColor(hexString: colourHexCode) else { fatalError()}
+        
+        navBar.barTintColor = navbarColour
+        
+        navBar.tintColor = ContrastColorOf(navbarColour, returnFlat: true)
+        
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navbarColour, returnFlat: true)]
+        
+        searchBar.barTintColor = navbarColour
+    }
     
     //MARK: - Tableview Datasource Methods
     
     //we should have as many cells as we have todo items for our current selected category
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+ 
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
+            
+
+            if let colour = UIColor(hexString: selectedCategory!.colour)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) {
+                cell.backgroundColor = colour
+                cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+                }
+
+//            print ("version 1 : \(CGFloat(indexPath.row / todoItems!.count))")
+//            print ("version 2 : \(CGFloat(indexPath.row) / CGFloat(todoItems!.count))")
             
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Items Added"
         }
-        
+
+        //we need to return cell again because we modified it from super class
         return cell
     }
     
@@ -113,6 +157,19 @@ class TodoListViewController : UITableViewController {
         
         //reload tableView to call datasource methods
         tableView.reloadData()
+    }
+    //MARK: - Delete Data From Swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        
+        if let itemForDeletion = self.todoItems?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(itemForDeletion)}
+            } catch {
+                print("Error deleting item \(error)")
+            }
+        }
     }
     
 }

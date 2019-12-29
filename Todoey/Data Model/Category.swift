@@ -13,6 +13,7 @@ import RealmSwift
 
 class Category: Object {
     @objc dynamic var name : String = ""
+    @objc dynamic var colour : String = ""
     let items = List<Item>()
     //each category can have a number of items and that is a list of item objects
     //List is something like an array
